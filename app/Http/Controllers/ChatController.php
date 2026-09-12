@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class ChatController extends Controller
 {
     protected $apiKey;
-    protected $apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
+    protected $apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
     public function __construct()
     {

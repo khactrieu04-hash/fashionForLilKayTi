@@ -130,7 +130,7 @@ Route::middleware(['auth.admin', 'admin.verified'])->group(function () {
 
         Route::group(['prefix' => 'setting'], function(){
             Route::get('/', [SettingController::class, "index"])->name('admin.setting_index');
-            Route::post('/', [SettingController::class, "store"])->name('admin.setting_index');
+            Route::post('/', [SettingController::class, "store"])->name('admin.post_setting_index');
         });
 
         Route::group(['prefix' => 'payments'], function(){

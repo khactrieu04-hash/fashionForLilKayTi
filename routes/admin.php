@@ -77,7 +77,7 @@ Route::middleware(['auth.admin', 'admin.verified'])->group(function () {
         Route::post('store-size-product/{product}', [ProductController::class, "storeSizeProduct"])->name('admin.store_size_product');
         Route::post('delete-size-product/{productSize}', [ProductController::class, "deleteSizeProduct"])->name('admin.delete_size_product');
         Route::get('update-size-product/{productSize}/{product}', [ProductController::class, "editSizeProduct"])->name('admin.update_size_product');
-        Route::post('update-size-product/{productSize}/{product}', [ProductController::class, "updateSizeProduct"])->name('admin.update_size_product');
+        Route::post('update-size-product/{productSize}/{product}', [ProductController::class, "updateSizeProduct"])->name('admin.post_update_size_product');
 
     });
 

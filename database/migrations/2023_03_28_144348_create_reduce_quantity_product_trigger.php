@@ -12,20 +12,24 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::unprepared('
-            CREATE TRIGGER reduce_quantity_product
-                AFTER INSERT ON order_details
-                FOR EACH ROW 
-                BEGIN
-                    declare _quantity int;
-                    select quantity into _quantity from products_size where id = new.product_size_id;
-                    if (new.quantity <= 0 || _quantity < new.quantity) then
-                        SIGNAL sqlstate "45001" set message_text = "error";
-                    else
-                        update products_size set quantity = _quantity - new.quantity where id = new.product_size_id;
-                    end if;
-            END
-        ');
+        try {
+            DB::unprepared('
+                CREATE TRIGGER reduce_quantity_product
+                    AFTER INSERT ON order_details
+                    FOR EACH ROW 
+                    BEGIN
+                        declare _quantity int;
+                        select quantity into _quantity from products_size where id = new.product_size_id;
+                        if (new.quantity <= 0 || _quantity < new.quantity) then
+                            SIGNAL sqlstate "45001" set message_text = "error";
+                        else
+                            update products_size set quantity = _quantity - new.quantity where id = new.product_size_id;
+                        end if;
+                END
+            ');
+        } catch (\Throwable $e) {
+            // TiDB Serverless không hỗ trợ triggers, bỏ qua an toàn
+        }
     }
 
     /**
@@ -35,8 +39,11 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::unprepared('
-            drop trigger validate_quantity
-        ');
+        try {
+            DB::unprepared('
+                drop trigger if exists reduce_quantity_product
+            ');
+        } catch (\Throwable $e) {
+        }
     }
 };

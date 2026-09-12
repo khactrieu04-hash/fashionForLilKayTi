@@ -1,0 +1,14 @@
+.git
+.gitignore
+.editorconfig
+.idea
+.env
+.env.backup
+node_modules
+npm-debug.log
+vendor
+storage/*.key
+storage/logs/*.log
+tests
+phpunit.xml
+README.md

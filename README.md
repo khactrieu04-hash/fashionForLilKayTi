@@ -9,6 +9,16 @@
 
 ## About Laravel
 
+## Frontend architecture
+
+The application is being migrated incrementally to a hybrid frontend:
+
+- Blade remains the page shell and server-rendered fallback.
+- React components are mounted from Blade through `resources/js/react.jsx` and the `react-mount` Blade component.
+- Livewire 4 is available for server-driven forms and CRUD screens after the Laravel runtime upgrade.
+
+The project runs on Laravel 12 with PHP 8.2. Laravel 13 requires PHP 8.3 or newer, so Laravel 12 is currently the newest compatible major version. Migrate screens one route at a time while keeping Blade as the server-rendered fallback.
+
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).

@@ -31,19 +31,20 @@
   {{-- <script src="{{ asset('asset/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ asset('asset/admin/plugins/moment/moment.min.js') }}"></script> --}}
 
-{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> --}}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> --}}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
-</body>
-<script>
-  $('#loading__js').css('display', 'flex');
-  $(document).ready(function(){
-    setTimeout(() => {
-      $('#loading__js').css('display', 'none');
-    }, 1500);
-  });
+  @livewireScripts
+  </body>
+  <script>
+    $('#loading__js').css('display', 'flex');
+    $(document).ready(function() {
+      setTimeout(() => {
+        $('#loading__js').css('display', 'none');
+      }, 1500);
+    });
+  </script>
 
-</script>
-</html>
+  </html>

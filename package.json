@@ -5,6 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@vitejs/plugin-react": "^4.7.0",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.0",
         "lodash": "^4.17.19",
@@ -12,6 +13,8 @@
         "vite": "^4.5.2"
     },
     "dependencies": {
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
         "sweetalert2": "^11.7.1"
     }
 }

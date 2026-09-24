@@ -32,6 +32,7 @@
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('asset/client/images/apple-touch-icon-72x72.png') }}') }}">
   <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('asset/client/images/apple-touch-icon-114x114.png') }}') }}">
   @vite(['resources/client/css/home.css'])
+  @livewireStyles
 </head>
 <style>
   :root {
@@ -654,6 +655,7 @@
   <script defer src="{{ asset('asset/admin/plugins/jquery-validation/jquery.validate.js') }}"></script>
 
   @vite(['resources/admin/js/toast-message.js'])
+  @livewireScripts
   <script>
     // Gentle on-scroll animations using IntersectionObserver
     (function() {

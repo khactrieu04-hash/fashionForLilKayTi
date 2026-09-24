@@ -36,7 +36,7 @@ class ProductReviewRepository extends BaseRepository
     public function checkUserProductReview($productId, $userId)
     {
         return $this->model->join('products', 'products.id', '=', 'product_reviews.product_id')
-        ->where('product_reviews.product_id', $productId)->where('product_reviews.user_id', $userId)->count();
+            ->where('product_reviews.product_id', $productId)->where('product_reviews.user_id', $userId)->count();
     }
 
     public function getRatingByProduct($productId)
@@ -53,17 +53,17 @@ class ProductReviewRepository extends BaseRepository
     public function getProductReview($productId)
     {
         return $this->model
-        ->join('products', 'products.id', '=', 'product_reviews.product_id')
-        ->join('users', function ($join) {
-            $join->on('users.id', '=', 'product_reviews.user_id')
-                 ->where('users.active', '=', 1)
-                 ->whereNull('users.deleted_at')
-                 ->whereNull('product_reviews.deleted_at');
-        })
-        ->select('users.name as user_name', 'product_reviews.*')
-        ->where('product_reviews.product_id', '=', $productId)
-        ->orderBy('id', 'desc')
-        ->paginate(ProductReview::PRODUCT_REVIEW_NUMBER_ITEM);
+            ->join('products', 'products.id', '=', 'product_reviews.product_id')
+            ->join('users', function ($join) {
+                $join->on('users.id', '=', 'product_reviews.user_id')
+                    ->where('users.active', '=', 1)
+                    ->whereNull('users.deleted_at')
+                    ->whereNull('product_reviews.deleted_at');
+            })
+            ->select('users.name as user_name', 'product_reviews.*')
+            ->where('product_reviews.product_id', '=', $productId)
+            ->orderBy('id', 'desc')
+            ->paginate(ProductReview::PRODUCT_REVIEW_NUMBER_ITEM);
 
         // return DB::select("
         //     select users.name as user_name, product_reviews.* from products join product_reviews on products.id = product_reviews.product_id
@@ -79,11 +79,22 @@ class ProductReviewRepository extends BaseRepository
     public function avgRatingProduct($productId)
     {
         return DB::table('product_reviews')
-        ->join('products', 'products.id', '=', 'product_reviews.product_id')
-        ->select(DB::raw('sum(product_reviews.rating) / count(*) as avg_rating'))
-        ->where('products.id', $productId)
-        ->first();
+            ->join('products', 'products.id', '=', 'product_reviews.product_id')
+            ->select(DB::raw('sum(product_reviews.rating) / count(*) as avg_rating'))
+            ->where('products.id', $productId)
+            ->first();
+    }
+
+    public function avgRatingsProducts(array $productIds)
+    {
+        if (empty($productIds)) {
+            return collect();
+        }
+
+        return DB::table('product_reviews')
+            ->whereIn('product_id', $productIds)
+            ->groupBy('product_id')
+            ->select('product_id', DB::raw('AVG(rating) as avg_rating'))
+            ->pluck('avg_rating', 'product_id');
     }
 }
-
-?>

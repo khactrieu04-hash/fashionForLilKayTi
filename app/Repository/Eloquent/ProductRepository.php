@@ -73,9 +73,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getNewProducts()
     {
         return $this->model
-        ->join('categories', 'products.category_id', '=', 'categories.id')->whereNull('categories.deleted_at')
-        ->selectRaw('products.*')
-        ->orderBy("products.id", "desc")->limit(12)->get();
+            ->join('categories', 'products.category_id', '=', 'categories.id')->whereNull('categories.deleted_at')
+            ->selectRaw('products.*')
+            ->orderBy("products.id", "desc")->limit(12)->get();
     }
 
     public function getQuantityBuyProduct($productId)
@@ -90,6 +90,25 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             and products.deleted_at is null
             and products.id = $productId
         ")[0]->sum ?? 0;
+    }
+
+    public function getQuantitiesBuyProducts(array $productIds)
+    {
+        if (empty($productIds)) {
+            return collect();
+        }
+
+        return DB::table('products')
+            ->join('products_color', 'products.id', '=', 'products_color.product_id')
+            ->join('products_size', 'products_color.id', '=', 'products_size.product_color_id')
+            ->join('order_details', 'products_size.id', '=', 'order_details.product_size_id')
+            ->join('orders', 'orders.id', '=', 'order_details.order_id')
+            ->where('orders.order_status', 3)
+            ->whereNull('products.deleted_at')
+            ->whereIn('products.id', $productIds)
+            ->groupBy('products.id')
+            ->select('products.id', DB::raw('SUM(order_details.quantity) as sum'))
+            ->pluck('sum', 'id');
     }
 
     /**
@@ -113,66 +132,63 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getProductSearch($keyword = null, $category = null, $minPrice = null, $maxPrice = null, $brand = null)
     {
-        return $this->model->when($keyword, function($query, $keyword){
+        return $this->model->when($keyword, function ($query, $keyword) {
             return $query->where('products.name', 'LIKE', '%' . $keyword . '%');
         })
-        ->when($category, function($query, $category){
-            return $query->where('products.category_id', $category);
-        })
-        ->when($minPrice, function ($query, $minPrice) {
-            return $query->where('products.price_sell', '>=', $minPrice);
-        })
-        ->when($maxPrice, function ($query, $maxPrice) {
-            return $query->where('products.price_sell', '<=', $maxPrice);
-        })
-        ->when($brand, function ($query, $brand) {
-            return $query->where('products.brand_id', $brand);
-        })
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->selectRaw('products.*')
-        ->whereNull('categories.deleted_at')
-        ->paginate(Product::PRODUCT_NUMBER_ITEM['search'])
-        ->withQueryString();
+            ->when($category, function ($query, $category) {
+                return $query->where('products.category_id', $category);
+            })
+            ->when($minPrice, function ($query, $minPrice) {
+                return $query->where('products.price_sell', '>=', $minPrice);
+            })
+            ->when($maxPrice, function ($query, $maxPrice) {
+                return $query->where('products.price_sell', '<=', $maxPrice);
+            })
+            ->when($brand, function ($query, $brand) {
+                return $query->where('products.brand_id', $brand);
+            })
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->selectRaw('products.*')
+            ->whereNull('categories.deleted_at')
+            ->paginate(Product::PRODUCT_NUMBER_ITEM['search'])
+            ->withQueryString();
     }
 
     public function getProductBySlug($slug, $brand, $minPrice, $maxPrice)
     {
         return $this->model
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->selectRaw('products.*')
-        ->where('categories.slug', $slug)
-        ->when($brand, function ($query, $brand) {
-            return $query->where('products.brand_id', $brand);
-        })
-        ->when($minPrice, function ($query, $minPrice) {
-            return $query->where('products.price_sell', '>=', $minPrice);
-        })
-        ->when($maxPrice, function ($query, $maxPrice) {
-            return $query->where('products.price_sell', '<=', $maxPrice);
-        })
-        ->orderByDesc('products.id')
-        ->paginate(Product::PRODUCT_NUMBER_ITEM['show'])
-        ->withQueryString();
-        ;
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->selectRaw('products.*')
+            ->where('categories.slug', $slug)
+            ->when($brand, function ($query, $brand) {
+                return $query->where('products.brand_id', $brand);
+            })
+            ->when($minPrice, function ($query, $minPrice) {
+                return $query->where('products.price_sell', '>=', $minPrice);
+            })
+            ->when($maxPrice, function ($query, $maxPrice) {
+                return $query->where('products.price_sell', '<=', $maxPrice);
+            })
+            ->orderByDesc('products.id')
+            ->paginate(Product::PRODUCT_NUMBER_ITEM['show'])
+            ->withQueryString();;
     }
 
     public function getRelatedProducts($product)
     {
         return $this->model
-        ->where('category_id', $product->category_id)
-        ->where('id', '!=', $product->id)
-        ->orderByDesc('id')
-        ->limit(4)
-        ->get();
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->orderByDesc('id')
+            ->limit(4)
+            ->get();
     }
 
     public function checkProductColorExist($productId, $color)
     {
         return $this->model->join('products_color', 'products_color.product_id', '=', 'products.id')
-        ->where('products.id', $productId)->where('products_color.color_id', $color)
-        ->whereNull('products_color.deleted_at')
-        ->count();
+            ->where('products.id', $productId)->where('products_color.color_id', $color)
+            ->whereNull('products_color.deleted_at')
+            ->count();
     }
 }
-
-?>

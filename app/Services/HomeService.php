@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repository\Eloquent\ProductRepository;
 use App\Repository\Eloquent\ProductReviewRepository;
 
-class HomeService 
+class HomeService
 {
     /**
      * @var ProductRepository
@@ -37,15 +37,25 @@ class HomeService
     {
         // lấy sản phẩm bán chạy nhất
         $bellingProducts = $this->productRepository->getBestSellingProduct();
-        foreach($bellingProducts as $key => $bellingProduct) {
-            $bellingProducts[$key]->avg_rating = $this->productReviewRepository->avgRatingProduct($bellingProduct->id)->avg_rating ?? 0;
-        }
 
         // lấy sản phẩm mới nhất
         $newProducts = $this->productRepository->getNewProducts();
-        foreach($newProducts as $key => $newProduct) {
-            $newProducts[$key]->avg_rating = $this->productReviewRepository->avgRatingProduct($newProduct->id)->avg_rating ?? 0;
-            $newProducts[$key]->sum = $this->productRepository->getQuantityBuyProduct($newProduct->id);
+        $productIds = collect($bellingProducts)
+            ->merge($newProducts)
+            ->pluck('id')
+            ->unique()
+            ->values()
+            ->all();
+        $ratings = $this->productReviewRepository->avgRatingsProducts($productIds);
+        $quantities = $this->productRepository->getQuantitiesBuyProducts($productIds);
+
+        foreach ($bellingProducts as $bellingProduct) {
+            $bellingProduct->avg_rating = $ratings->get($bellingProduct->id, 0);
+        }
+
+        foreach ($newProducts as $newProduct) {
+            $newProduct->avg_rating = $ratings->get($newProduct->id, 0);
+            $newProduct->sum = $quantities->get($newProduct->id, 0);
         }
         // trả dữ liệu cho controller
         return [
@@ -55,4 +65,3 @@ class HomeService
         ];
     }
 }
-?>

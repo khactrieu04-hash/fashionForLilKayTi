@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use PDO;
 
 return [
 
@@ -32,7 +33,10 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
-
+    'options' => extension_loaded('pdo_mysql') ? array_filter([
+        PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+    ]) : [],
     'connections' => [
 
         'sqlite' => [
@@ -125,7 +129,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

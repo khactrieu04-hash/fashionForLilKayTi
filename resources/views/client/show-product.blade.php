@@ -123,8 +123,8 @@
                 <div class="product-thumb">
                   <div class="image product-imageblock">
                     <a href="{{ route('user.products_detail', $bellingProduct->id) }}">
-                      <img class="img-responsive" title="iPod Classic" alt="iPod Classic" src="{{ asset("asset/client/images/products/small/$bellingProduct->img") }}">
-                      <img class="img-responsive" title="iPod Classic" alt="iPod Classic" src="{{ asset("asset/client/images/products/small/$bellingProduct->img") }}">
+                      <img loading="lazy" class="img-responsive" title="iPod Classic" alt="iPod Classic" src="{{ asset("asset/client/images/products/small/$bellingProduct->img") }}">
+                      <img loading="lazy" class="img-responsive" title="iPod Classic" alt="iPod Classic" src="{{ asset("asset/client/images/products/small/$bellingProduct->img") }}">
                     </a>
                   </div>
                 </div>
@@ -153,8 +153,8 @@
           <div class="item">
             <div class="product-thumb clearfix mb_30">
               <div class="image product-imageblock"> <a href="{{ route('user.products_detail', $product->id) }}">
-                  <img style="height: 400px; object-fit: contain;" data-name="product_image" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" />
-                  <img style="height: 400px; object-fit: contain;" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" /> </a>
+                  <img loading="lazy" style="height: 400px; object-fit: contain;" data-name="product_image" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" />
+                  <img loading="lazy" style="height: 400px; object-fit: contain;" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" /> </a>
               </div>
               <div class="caption product-detail text-center">
                 <h6 data-name="product_name" class="product-name mt_20">

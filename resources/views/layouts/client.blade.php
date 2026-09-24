@@ -508,15 +508,15 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="brand owl-carousel ptb_20">
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand1.png") }}" alt="Disney" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand2.png") }}" alt="Dell" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand3.png") }}" alt="Harley" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand4.png") }}" alt="Canon" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand5.png") }}" alt="Canon" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand6.png") }}" alt="Canon" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand7.png") }}" alt="Canon" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand8.png") }}" alt="Canon" class="img-responsive" /></a> </div>
-                <div class="item text-center"> <a href="#"><img src="{{ asset("asset/client/images/brand/brand9.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand1.png") }}" alt="Disney" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand2.png") }}" alt="Dell" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand3.png") }}" alt="Harley" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand4.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand5.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand6.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand7.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand8.png") }}" alt="Canon" class="img-responsive" /></a> </div>
+                <div class="item text-center"> <a href="#"><img loading="lazy" src="{{ asset("asset/client/images/brand/brand9.png") }}" alt="Canon" class="img-responsive" /></a> </div>
               </div>
             </div>
           </div>
@@ -644,14 +644,14 @@
   @elseif (Session::has('error'))
   <span id="toast__js" message="{{ session('error') }}" type="error"></span>
   @endif
-  <script src="{{ asset('asset/client/js/jQuery_v3.1.1.min.js') }}"></script>
-  <script src="{{ asset('asset/client/js/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('asset/client/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('asset/client/js/jquery.magnific-popup.js') }}"></script>
-  <script src="{{ asset('asset/client/js/jquery.firstVisitPopup.js') }}"></script>
-  <script src="{{ asset('asset/client/js/custom.js') }}"></script>
-  <script src="{{ asset('asset/admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
-  <script src="{{ asset('asset/admin/plugins/jquery-validation/jquery.validate.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/jQuery_v3.1.1.min.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/owl.carousel.min.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/bootstrap.min.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/jquery.magnific-popup.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/jquery.firstVisitPopup.js') }}"></script>
+  <script defer src="{{ asset('asset/client/js/custom.js') }}"></script>
+  <script defer src="{{ asset('asset/admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+  <script defer src="{{ asset('asset/admin/plugins/jquery-validation/jquery.validate.js') }}"></script>
 
   @vite(['resources/admin/js/toast-message.js'])
   <script>

@@ -317,6 +317,8 @@
                           title="{{ $bellingProduct->name }}"
                           class="img-responsive product-thumb__img-product">
                         <img
+                          loading="lazy"
+                          loading="lazy"
                           src="{{ asset("asset/client/images/products/small/$bellingProduct->img") }}"
                           alt="{{ $bellingProduct->name }}"
                           title="{{ $bellingProduct->name }}"
@@ -378,6 +380,8 @@
                             title="{{ $newProduct->name }}"
                             class="img-responsive product-thumb__img-product">
                           <img
+                            loading="lazy"
+                            loading="lazy"
                             src="{{ asset("asset/client/images/products/small/$newProduct->img") }}"
                             alt="{{ $newProduct->name }}"
                             title="{{ $newProduct->name }}"

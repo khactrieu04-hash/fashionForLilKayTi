@@ -5,20 +5,20 @@
         <div class="hot-products">
             <h3 class="title" style="padding: 20px 0px;">
                 @if (count($products) > 0)
-                    Kết quả tìm kiếm cho từ khoá '<span style="color:#f7544a;">{{ $contentSearch }}</span>'
+                Kết quả tìm kiếm cho từ khoá '<span style="color:#f7544a;">{{ $contentSearch }}</span>'
                 @else
-                    Chúng tôi không tìm thấy sản phẩm '<span style="color:#f7544a;">{{ $contentSearch }}</span>' nào       
+                Chúng tôi không tìm thấy sản phẩm '<span style="color:#f7544a;">{{ $contentSearch }}</span>' nào
                 @endif
             </h3>
             <form class="row" method="GET">
-                <input type="hidden" value="{{ $contentSearch }}" hidden name="keyword" >
+                <input type="hidden" value="{{ $contentSearch }}" hidden name="keyword">
                 <div class="col-sm-3">
                     <div class="form-group">
                         <select class="form-control form-select" name="category">
                             <option disabled selected>Chọn danh mục</option>
-                            <option value="" >Tất cả</option>
+                            <option value="">Tất cả</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ ($category->id == $categoryKey) ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ ($category->id == $categoryKey) ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,9 +27,9 @@
                     <div class="form-group">
                         <select class="form-control form-select" name="brand">
                             <option disabled selected>Chọn thương hiệu</option>
-                            <option value="" >Tất cả</option>
+                            <option value="">Tất cả</option>
                             @foreach ($brands as $item)
-                                <option value="{{ $item->id }}" {{ ($item->id == $brand) ? 'selected' : '' }}>{{ $item->name }}</option>
+                            <option value="{{ $item->id }}" {{ ($item->id == $brand) ? 'selected' : '' }}>{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -47,40 +47,40 @@
                     </div>
                 </div>
             </form>
-           
+
             <div class="row">
                 @if (count($products) > 0)
-                  @foreach ($products as $product)
-                      <div class="product-layout  product-grid  col-md-4 col-sm-6 col-xs-12 ">
-                          <div class="item">
-                          <div class="product-thumb clearfix mb_30">
-                              <div class="image product-imageblock"> 
-                                <a href="{{ route('user.products_detail', $product->id) }}" style="display: flex; justify-content: center;"> 
-                                  <img style="height: 400px; object-fit: contain;" data-name="product_image" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" /> 
-                                  <img style="height: 400px; object-fit: contain;" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" /> 
+                @foreach ($products as $product)
+                <div class="product-layout  product-grid  col-md-4 col-sm-6 col-xs-12 ">
+                    <div class="item">
+                        <div class="product-thumb clearfix mb_30">
+                            <div class="image product-imageblock">
+                                <a href="{{ route('user.products_detail', $product->id) }}" style="display: flex; justify-content: center;">
+                                    <img loading="lazy" style="height: 400px; object-fit: contain;" data-name="product_image" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" />
+                                    <img loading="lazy" style="height: 400px; object-fit: contain;" src="{{ asset("asset/client/images/products/small/$product->img") }}" alt="iPod Classic" title="iPod Classic" class="img-responsive" />
                                 </a>
-                              </div>
-                              <div class="caption product-detail text-center">
-                              <h6 data-name="product_name" class="product-name mt_20">
-                                  <a href="{{ route('user.products_detail', $product->id) }}" style="display: inline-block; height: 40px;" title="Casual Shirt With Ruffle Hem">{{ $product->name }}</a>
-                              </h6>
-                              <div class="rating"> 
-                                  <x-avg-stars :number="$product->avg_rating" />
-                              </div>
-                              <span class="price"><span class="amount"><span class="currencySymbol"></span>{{ format_number_to_money($product->price_sell) }} VND</span>
-                              </span>
-                              </div>
-                              <div class="button_group">
+                            </div>
+                            <div class="caption product-detail text-center">
+                                <h6 data-name="product_name" class="product-name mt_20">
+                                    <a href="{{ route('user.products_detail', $product->id) }}" style="display: inline-block; height: 40px;" title="Casual Shirt With Ruffle Hem">{{ $product->name }}</a>
+                                </h6>
+                                <div class="rating">
+                                    <x-avg-stars :number="$product->avg_rating" />
+                                </div>
+                                <span class="price"><span class="amount"><span class="currencySymbol"></span>{{ format_number_to_money($product->price_sell) }} VND</span>
+                                </span>
+                            </div>
+                            <div class="button_group">
                                 <a href="{{ route('user.products_detail', $product->id) }}" class="btn btn-primary" type="button">Xem Chi Tiết</a>
-                              </div>
-                          </div>
-                          </div>
-                      </div>
-                  @endforeach
-              @else
-                  <h3 class="title" style="padding-top: 20px;">Không có sản phẩm</h3>
-              @endif
-              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @else
+                <h3 class="title" style="padding-top: 20px;">Không có sản phẩm</h3>
+                @endif
+            </div>
         </div>
         <div class="text-center">
             <ul class="pagination">

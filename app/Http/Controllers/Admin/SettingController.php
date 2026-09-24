@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\HomeService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SettingController extends Controller
 {
@@ -14,7 +16,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index() 
+    public function index()
     {
         return view('admin.setting.index', [
             'title' => 'Cấu Hình Website',
@@ -27,12 +29,13 @@ class SettingController extends Controller
         try {
             $data = $request->all();
             if ($request->logo) {
-                $imageName = time().'.'.request()->logo->getClientOriginalExtension();
+                $imageName = time() . '.' . request()->logo->getClientOriginalExtension();
                 request()->logo->move(public_path('asset/client/images/'), $imageName);
                 $data['logo'] = $imageName;
             }
             $setting = Setting::first();
             $setting->update($data);
+            Cache::forget('client.website_setting');
             return back()->with('success', 'Cập nhật thông tin thành công');
         } catch (Exception) {
             return back()->with('error', 'Cập nhật thông tin thất bại');

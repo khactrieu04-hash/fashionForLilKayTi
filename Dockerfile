@@ -40,7 +40,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && sed -i 's/memory_limit = 128M/memory_limit = 256M/g' "$PHP_INI_DIR/php.ini" \
     && sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 32M/g' "$PHP_INI_DIR/php.ini" \
-    && sed -i 's/post_max_size = 8M/post_max_size = 32M/g' "$PHP_INI_DIR/php.ini"
+    && sed -i 's/post_max_size = 8M/post_max_size = 32M/g' "$PHP_INI_DIR/php.ini"\
+    && echo "pdo_mysql.verify_server_cert=0" >> "$PHP_INI_DIR/php.ini"
 
 # Cài đặt Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

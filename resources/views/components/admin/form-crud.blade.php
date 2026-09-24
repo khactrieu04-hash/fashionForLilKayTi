@@ -51,7 +51,7 @@
   <!-- /.card-body -->
   <div class="card-header text-center">
     <button class="btn btn-success">{{$textSubmit}}</button>
-    @if ($cancelBtn == "true")
+    @if ($cancelBtn == "true" && $cancel && $cancel != "false")
       <a href="{{ route($cancel) }}" class="btn btn-danger next-link__js">Hủy</a>
     @endif
 </form>

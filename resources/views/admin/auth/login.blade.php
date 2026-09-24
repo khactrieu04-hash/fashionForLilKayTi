@@ -1,4 +1,4 @@
-@extends('layouts.admin-auth')
+http://127.0.0.1:8000@extends('layouts.admin-auth')
 @section('content-auth')
 <main>
   <div class="container">
@@ -21,16 +21,16 @@
                 <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">ĐĂNG NHẬP HỆ THỐNG</h5>
                   @if ($errors->get('disable_reason'))
-                    <p class="text-center small error invalid-feedback" style="display: block">{{ implode(", ",$errors->get('disable_reason')) }}</p>
+                  <p class="text-center small error invalid-feedback" style="display: block">{{ implode(", ",$errors->get('disable_reason')) }}</p>
                   @endif
                   @if ($errors->get('email'))
-                          {{-- <span id="email-error" class="error invalid-feedback" style="display: block">
+                  {{-- <span id="email-error" class="error invalid-feedback" style="display: block">
                             {{ implode(", ",$errors->get('email')) }}
-                          </span> --}}
-                          <p class="text-center small error invalid-feedback" style="display: block">{{ implode(", ",$errors->get('email')) }}</p>
-                        @endif
+                  </span> --}}
+                  <p class="text-center small error invalid-feedback" style="display: block">{{ implode(", ",$errors->get('email')) }}</p>
+                  @endif
                 </div>
-                
+
                 <form class="row g-3" action="{{ route('admin.login') }}" method="post" id="login-form__js">
                   @csrf
                   <div class="col-12">
@@ -45,9 +45,9 @@
                     <input type="password" name="password" class="form-control" id="yourPassword" required>
                     <div class="invalid-feedback">
                       @if ($errors->get('password'))
-                        <span id="password-error" class="error invalid-feedback" style="display: block">
-                          {{ implode(", ",$errors->get('password')) }}
-                        </span>
+                      <span id="password-error" class="error invalid-feedback" style="display: block">
+                        {{ implode(", ",$errors->get('password')) }}
+                      </span>
                       @endif
                     </div>
                   </div>
@@ -55,7 +55,7 @@
                   <div class="col-12">
                     <button class="btn btn-primary w-100" type="submit">Đăng Nhập</button>
                   </div>
-                 
+
                 </form>
 
               </div>

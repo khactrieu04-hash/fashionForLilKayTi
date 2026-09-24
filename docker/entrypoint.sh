@@ -3,6 +3,13 @@ set -e
 
 echo "=== Starting Laravel Container Initialization ==="
 
+# Render does not include the local .env file in the image. Use the configured
+# key when available, otherwise create a process-local key so Laravel can boot.
+if [ -z "$APP_KEY" ]; then
+    export APP_KEY="base64:$(php -r 'echo base64_encode(random_bytes(32));')"
+    echo "APP_KEY was not provided; generated a temporary runtime key."
+fi
+
 # 1. Update Nginx port dynamically if Render provides $PORT
 if [ -n "$PORT" ]; then
     echo "Configuring Nginx to listen on port $PORT..."
